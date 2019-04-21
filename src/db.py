@@ -36,6 +36,7 @@ class Post(db.Model):
             'id': self.id,
             'text': self.text,
             'nickname': self.nickname
+            'uploaded': self.upload_date
         }
 
 
