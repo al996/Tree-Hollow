@@ -1,1 +1,115 @@
-""""""
+import json
+import time
+from flask import Flask, request
+from db import db, User, Post, Tag
+from google.oauth2 import id_token
+from google.auth.transport import requests
+app = Flask(__name__)
+db_filename = 'data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % db_filename
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ECHO'] = True
+db.init_app(app)
+with app.app_context():
+    db.create_all()
+# the dict to return in the event of an invalid request
+error_dict = {
+    'success': False
+}
+TH_APP_ID = "*register tree hollow with google oauth2 and enter our client id here"
+
+
+@app.route('/api/posts/', methods=['GET'])
+def get_all_posts():
+    posts = Post.query.all()
+    response = {
+        'success': True,
+        'data': [post.serialize() for post in posts]
+    }
+    return json.dumps(response), 200
+
+
+@app.route('/api/posts/', methods=['POST'])
+def create_a_post():
+    # ensure the body is valid JSON
+    try:
+        post = json.loads(request.data)
+    except ValueError:
+        return json.dumps(error_dict), 400
+    text = post.get("text")
+    token = post.get("token")
+    # ensure the body is in the expected format
+    if len(list(post.keys())) != 2 or text is None\
+            or token is None:
+        return json.dumps(error_dict), 400
+    # validate the user token with google oauth2
+    get_params = {
+        'token': token
+    }
+    try:
+        idinfo = id_token.verify_oauth2_token(
+            token, requests.Request(), TH_APP_ID)
+
+        if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+            raise ValueError('Wrong issuer.')
+
+        # ID token is valid. Get the user's Google Account ID from the decoded token.
+        userid = idinfo['sub']
+    except ValueError:
+        # Invalid token
+        return json.dumps(error_dict), 400
+    user = User.query.filter_by(id=userid).first()
+    if user is None:
+        # the user trying to create a post is not stored in our database.
+        # i dont think this should ever happen (hopefully ?)
+        return json.dumps(error_dict), 400
+
+    constructed_post = Post(
+        text=text,
+        nickname=user.nickname,
+        upload_date=int(time.time())
+    )
+    db.session.add(constructed_post)
+    db.session.commit()
+    response = {
+        'success': True,
+        'data': constructed_post.serialize()
+    }
+    return json.dumps(response), 201
+
+
+@app.route('/api/post/<int:post_id>/', methods=['GET'])
+def get_post_by_id(post_id):
+    post = Post.query.filter_by(id=class_id).first()
+    # ensure a post exists with such id
+    if post is None:
+        return json.dumps(error_dict), 400
+    response = {
+        "success": True,
+        "data": post.serialize()
+    }
+    return json.dumps(response), 400
+
+
+@app.route('/api/post/<int:post_id>/', methods=['POST'])
+def edit_post_by_id(post_id):
+    pass
+
+
+@app.route('/api/post/<int:post_id>/', methods=['DELETE'])
+def delete_post_by_id(post_id):
+    pass
+
+
+@app.route('/api/post/<int:post_id>/tags/', methods=['GET'])
+def get_tags_by_post_id(post_id):
+    pass
+
+
+@app.route('/api/post/<int:post_id>/tag/', methods=['POST'])
+def add_tag_to_post_by_id(post_id):
+    pass
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)

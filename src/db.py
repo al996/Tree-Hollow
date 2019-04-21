@@ -9,7 +9,7 @@ db = SQLAlchemy()
 
 class User(db.Model):
     __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String, primary_key=True)
     nickname = db.Column(db.String, nullable=False)
     join_date = db.Column(db.Integer, nullable=False)
     posts = relationship('Post', cascade='delete')
@@ -35,7 +35,7 @@ class Post(db.Model):
         return {
             'id': self.id,
             'text': self.text,
-            'nickname': self.nickname
+            'nickname': self.nickname,
             'uploaded': self.upload_date
         }
 
