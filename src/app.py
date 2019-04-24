@@ -16,7 +16,7 @@ with app.app_context():
 error_dict = {
     'success': False
 }
-TH_APP_ID = "*register tree hollow with google oauth2 and enter our client id here"
+TH_APP_ID = "586460777808-tkjlp61qvme9o9r4tm1lj5uuov7nojbo.apps.googleusercontent.com"
 
 
 @app.route('/api/posts/', methods=['GET'])
@@ -80,7 +80,7 @@ def create_a_post():
 
 @app.route('/api/post/<int:post_id>/', methods=['GET'])
 def get_post_by_id(post_id):
-    post = Post.query.filter_by(id=class_id).first()
+    post = Post.query.filter_by(id=post_id).first()
     # ensure a post exists with such id
     if post is None:
         return json.dumps(error_dict), 400
@@ -98,7 +98,16 @@ def edit_post_by_id(post_id):
 
 @app.route('/api/post/<int:post_id>/', methods=['DELETE'])
 def delete_post_by_id(post_id):
-    pass
+    post = Post.query.filter_by(id=post_id).first()
+    if post is None:
+        return json.dumps(error_dict), 400
+    db.session.delete(post)
+    db.session.commit()
+    response = {
+        "success": True,
+        "data": post.serialize()
+    }
+    return json.dumps(response), 200
 
 
 @app.route('/api/post/<int:post_id>/tags/', methods=['GET'])
