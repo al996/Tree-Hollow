@@ -96,11 +96,28 @@ def edit_post_by_id(post_id):
     pass
 
 
-@app.route('/api/post/<int:post_id>/', methods=['DELETE'])
-def delete_post_by_id(post_id):
+@app.route('/api/post/<int:post_id>/token/<string:token>/', methods=['DELETE'])
+def delete_post_by_id(post_id, token):
     post = Post.query.filter_by(id=post_id).first()
     if post is None:
         return json.dumps(error_dict), 400
+    # validate the user token
+    get_params = {
+        'token': token
+    }
+    try:
+        idinfo = id_token.verify_oauth2_token(
+            token, requests.Request(), TH_APP_ID)
+
+        if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+            raise ValueError('Wrong issuer.')
+
+        # ID token is valid. Get the user's Google Account ID from the decoded token.
+        userid = idinfo['sub']
+    except ValueError:
+        # Invalid token
+        return json.dumps(error_dict), 400
+
     db.session.delete(post)
     db.session.commit()
     response = {
