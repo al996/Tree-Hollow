@@ -57,6 +57,7 @@ def create_a_post():
         userid = idinfo['sub']
     except ValueError:
         # Invalid token
+        print("invalid token supplied.")
         return json.dumps(error_dict), 400
     user = User.query.filter_by(id=userid).first()
     if user is None:
@@ -116,6 +117,11 @@ def delete_post_by_id(post_id, token):
         userid = idinfo['sub']
     except ValueError:
         # Invalid token
+        return json.dumps(error_dict), 400
+
+    # confirm that the user trying to delete this post is the original author of
+    # the post
+    if post.user_id != userid:
         return json.dumps(error_dict), 400
 
     db.session.delete(post)

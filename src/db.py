@@ -12,7 +12,7 @@ class User(db.Model):
     id = db.Column(db.String, primary_key=True)
     nickname = db.Column(db.String, nullable=False)
     join_date = db.Column(db.Integer, nullable=False)
-    posts = relationship('Post', cascade='delete')
+    posts = db.relationship('Post', cascade='delete')
 
     def __init__(self, **kwargs):
         self.code = kwargs.get('nickname', '')
@@ -25,6 +25,8 @@ class Post(db.Model):
     text = db.Column(db.String, nullable=False)
     nickname = db.Column(db.String, nullable=False)
     upload_date = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        'users.id'), nullable=False)
 
     def __init__(self, **kwargs):
         self.code = kwargs.get('text', '')
