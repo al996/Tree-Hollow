@@ -9,14 +9,16 @@ db = SQLAlchemy()
 
 class User(db.Model):
     __tablename__ = 'users'
-    id = db.Column(db.String, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    google_id = db.Column(db.String, nullable=False)
     nickname = db.Column(db.String, nullable=False)
     join_date = db.Column(db.Integer, nullable=False)
     posts = db.relationship('Post', cascade='delete')
 
     def __init__(self, **kwargs):
-        self.code = kwargs.get('nickname', '')
-        self.code = kwargs.get('join_date', '')
+        self.google_id = kwargs.get('google_id', '')
+        self.nickname = kwargs.get('nickname', '')
+        self.join_date = kwargs.get('join_date', '')
 
 
 class Post(db.Model):
@@ -29,9 +31,10 @@ class Post(db.Model):
         'users.id'), nullable=False)
 
     def __init__(self, **kwargs):
-        self.code = kwargs.get('text', '')
-        self.code = kwargs.get('nickname', '')
-        self.code = kwargs.get('upload_date', '')
+        self.text = kwargs.get('text', '')
+        self.nickname = kwargs.get('nickname', '')
+        self.upload_date = kwargs.get('upload_date', '')
+        self.user_id = kwargs.get('user_id', 0)
 
     def serialize(self):
         return {
@@ -48,7 +51,7 @@ class Tag(db.Model):
     tag = db.Column(db.String, nullable=False)
 
     def __init__(self, **kwargs):
-        self.code = kwargs.get('tag', '')
+        self.tag = kwargs.get('tag', '')
 
     def serialize(self):
         return {

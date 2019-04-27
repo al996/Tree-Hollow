@@ -16,8 +16,25 @@ with app.app_context():
 error_dict = {
     'success': False
 }
-TH_APP_ID = "586460777808-tkjlp61qvme9o9r4tm1lj5uuov7nojbo.apps.googleusercontent.com"
+TH_APP_ID = "1054326645687-jqg2n4pf3iqdufsgni9blo7kcpu6ljed.apps.googleusercontent.com"
 
+@app.route('/api/seed/', methods=['GET'])
+def create_seed_data():
+    new_user = User(
+        google_id="106380710636073572230",
+        nickname="littletree",
+        join_date=int(time.time())
+    )
+    db.session.add(new_user)
+    constructed_post = Post(
+        text="I'm so sad",
+        nickname="littletree",
+        upload_date=int(time.time()),
+        user_id=1
+    )
+    db.session.add(constructed_post)
+    db.session.commit()
+    return json.dumps({'success': True})
 
 @app.route('/api/posts/', methods=['GET'])
 def get_all_posts():
@@ -68,7 +85,8 @@ def create_a_post():
     constructed_post = Post(
         text=text,
         nickname=user.nickname,
-        upload_date=int(time.time())
+        upload_date=int(time.time()),
+        user_id=userid
     )
     db.session.add(constructed_post)
     db.session.commit()
