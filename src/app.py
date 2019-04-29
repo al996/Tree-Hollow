@@ -2,8 +2,9 @@ import json
 import time
 from flask import Flask, request
 from db import db, User, Post, Tag
-from google.oauth2 import id_token
-from google.auth.transport import requests
+#from google.oauth2 import id_token
+import requests
+#from google.auth.transport import requests
 app = Flask(__name__)
 db_filename = 'data.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % db_filename
@@ -16,7 +17,9 @@ with app.app_context():
 error_dict = {
     'success': False
 }
+AUTH_URL = "https://www.googleapis.com/userinfo/v2/me"
 TH_APP_ID = "1054326645687-jqg2n4pf3iqdufsgni9blo7kcpu6ljed.apps.googleusercontent.com"
+
 
 @app.route('/api/seed/', methods=['GET'])
 def create_seed_data():
@@ -36,6 +39,7 @@ def create_seed_data():
     db.session.commit()
     return json.dumps({'success': True})
 
+
 @app.route('/api/posts/', methods=['GET'])
 def get_all_posts():
     posts = Post.query.all()
@@ -45,6 +49,88 @@ def get_all_posts():
     }
     return json.dumps(response), 200
 
+
+@app.route('/api/users/', methods=['POST'])
+def register_user():
+    # ensure the body is valid JSON
+    try:
+        post = json.loads(request.data)
+    except ValueError:
+        return json.dumps(error_dict), 400
+
+    nickname = post.get("nickname")
+    token = post.get("token")
+    # ensure the body is in the expected format
+    if len(list(post.keys())) != 2 or nickname is None\
+            or token is None:
+        return json.dumps(error_dict), 400
+    # validate the user token with google oauth2
+    get_params = {
+        'access_token': token
+    }
+    r = requests.get(url=AUTH_URL, params=get_params)
+    data = r.json()
+
+    try:
+        google_id = data['id']
+    except KeyError:
+        # token is invalid
+        return json.dumps(error_dict), 400
+
+    print(google_id)
+    user = User.query.filter_by(google_id=google_id).first()
+    if not(user is None):
+        # the user trying to register already has an account
+        print("User already exists with that google id")
+        return json.dumps(error_dict), 400
+
+    constructed_user = User(
+        google_id=google_id,
+        nickname=nickname,
+        join_date=int(time.time()),
+    )
+    db.session.add(constructed_user)
+    db.session.commit()
+    response = {
+        'success': True,
+        'data': constructed_user.serialize()
+    }
+    return json.dumps(response), 201
+
+
+@app.route('/api/users/<string:token>/', methods=['GET'])
+def get_user_by_token(token):
+    # validate the user token with google oauth2
+    get_params = {
+        'access_token': token
+    }
+    r = requests.get(url=AUTH_URL, params=get_params)
+    data = r.json()
+
+    try:
+        google_id = data['id']
+    except KeyError:
+        # token is invalid
+        return json.dumps(error_dict), 400
+
+    user = User.query.filter_by(google_id=google_id).first()
+    # ensure a user exists with such google id
+    if user is None:
+        return json.dumps(error_dict), 400
+    response = {
+        "success": True,
+        "data": user.serialize()
+    }
+    return json.dumps(response), 400
+
+@app.route('/api/users/', methods=['GET'])
+def get_all_users():
+    users = User.query.all()
+    response = {
+        'success': True,
+        'data': [user.serialize() for user in users]
+    }
+    return json.dumps(response), 200
 
 @app.route('/api/posts/', methods=['POST'])
 def create_a_post():
@@ -61,32 +147,30 @@ def create_a_post():
         return json.dumps(error_dict), 400
     # validate the user token with google oauth2
     get_params = {
-        'token': token
+        'access_token': token
     }
+    r = requests.get(url=AUTH_URL, params=get_params)
+    data = r.json()
+
     try:
-        idinfo = id_token.verify_oauth2_token(
-            token, requests.Request(), TH_APP_ID)
-
-        if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
-            raise ValueError('Wrong issuer.')
-
-        # ID token is valid. Get the user's Google Account ID from the decoded token.
-        userid = idinfo['sub']
-    except ValueError:
-        # Invalid token
-        print("invalid token supplied.")
+        google_id = data['id']
+    except KeyError:
+        # token is invalid
         return json.dumps(error_dict), 400
-    user = User.query.filter_by(id=userid).first()
+
+    print(google_id)
+    user = User.query.filter_by(google_id=google_id).first()
     if user is None:
         # the user trying to create a post is not stored in our database.
         # i dont think this should ever happen (hopefully ?)
+        print("No user exists with that google id")
         return json.dumps(error_dict), 400
 
     constructed_post = Post(
         text=text,
         nickname=user.nickname,
         upload_date=int(time.time()),
-        user_id=userid
+        user_id=user.id
     )
     db.session.add(constructed_post)
     db.session.commit()
@@ -112,43 +196,55 @@ def get_post_by_id(post_id):
 
 @app.route('/api/post/<int:post_id>/', methods=['POST'])
 def edit_post_by_id(post_id):
-    pass
+    # ensure the body is valid JSON
+    try:
+        post = json.loads(request.data)
+    except ValueError:
+        return json.dumps(error_dict), 400
+    text = post.get("text")
+    token = post.get("token")
+    # ensure the body is in the expected format
+    if len(list(post.keys())) != 2 or text is None\
+            or token is None:
+        return json.dumps(error_dict), 400
+    # validate the user token with google oauth2
+    get_params = {
+        'access_token': token
+    }
+    r = requests.get(url=AUTH_URL, params=get_params)
+    data = r.json()
+
+    try:
+        google_id = data['id']
+    except KeyError:
+        # token is invalid
+        return json.dumps(error_dict), 400
+
+    print(google_id)
+    user = User.query.filter_by(google_id=google_id).first()
+    if user is None:
+        # the user trying to edit a post is not stored in our database.
+        # i dont think this should ever happen (hopefully ?)
+        print("No user exists with that google id")
+        return json.dumps(error_dict), 400
+
+    post = Post.query.filter_by(id=post_id).first()
+    # ensure a post exists with such id
+    if post is None:
+        return json.dumps(error_dict), 400
+
+    post.text = text
+    db.session.commit()
+    response = {
+        'success': True,
+        'data': post.serialize()
+    }
+    return json.dumps(response), 201
 
 
 @app.route('/api/post/<int:post_id>/token/<string:token>/', methods=['DELETE'])
 def delete_post_by_id(post_id, token):
-    post = Post.query.filter_by(id=post_id).first()
-    if post is None:
-        return json.dumps(error_dict), 400
-    # validate the user token
-    get_params = {
-        'token': token
-    }
-    try:
-        idinfo = id_token.verify_oauth2_token(
-            token, requests.Request(), TH_APP_ID)
-
-        if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
-            raise ValueError('Wrong issuer.')
-
-        # ID token is valid. Get the user's Google Account ID from the decoded token.
-        userid = idinfo['sub']
-    except ValueError:
-        # Invalid token
-        return json.dumps(error_dict), 400
-
-    # confirm that the user trying to delete this post is the original author of
-    # the post
-    if post.user_id != userid:
-        return json.dumps(error_dict), 400
-
-    db.session.delete(post)
-    db.session.commit()
-    response = {
-        "success": True,
-        "data": post.serialize()
-    }
-    return json.dumps(response), 200
+    pass
 
 
 @app.route('/api/post/<int:post_id>/tags/', methods=['GET'])

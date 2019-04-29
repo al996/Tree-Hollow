@@ -20,6 +20,13 @@ class User(db.Model):
         self.nickname = kwargs.get('nickname', '')
         self.join_date = kwargs.get('join_date', '')
 
+    def serialize(self):
+        return {
+            'id': self.id,
+            'nickname': self.nickname,
+            'joined': self.join_date
+        }
+
 
 class Post(db.Model):
     __tablename__ = 'posts'
