@@ -123,6 +123,7 @@ def get_user_by_token(token):
     }
     return json.dumps(response), 400
 
+
 @app.route('/api/users/', methods=['GET'])
 def get_all_users():
     users = User.query.all()
@@ -131,6 +132,7 @@ def get_all_users():
         'data': [user.serialize() for user in users]
     }
     return json.dumps(response), 200
+
 
 @app.route('/api/posts/', methods=['POST'])
 def create_a_post():
@@ -233,6 +235,10 @@ def edit_post_by_id(post_id):
     if post is None:
         return json.dumps(error_dict), 400
 
+    # ensure the post with such id is owned by the user trying to edit it
+    if not(post.user_id == user.id):
+        return json.dumps(error_dict), 400
+
     post.text = text
     db.session.commit()
     response = {
@@ -244,17 +250,42 @@ def edit_post_by_id(post_id):
 
 @app.route('/api/post/<int:post_id>/token/<string:token>/', methods=['DELETE'])
 def delete_post_by_id(post_id, token):
-    pass
+    # validate the user token with google oauth2
+    get_params = {
+        'access_token': token
+    }
+    r = requests.get(url=AUTH_URL, params=get_params)
+    data = r.json()
 
+    try:
+        google_id = data['id']
+    except KeyError:
+        # token is invalid
+        return json.dumps(error_dict), 400
 
-@app.route('/api/post/<int:post_id>/tags/', methods=['GET'])
-def get_tags_by_post_id(post_id):
-    pass
+    user = User.query.filter_by(google_id=google_id).first()
+    if user is None:
+        # the user trying to delete the post is not stored in our database.
+        # i dont think this should ever happen (hopefully ?)
+        print("No user exists with that google id")
+        return json.dumps(error_dict), 400
 
+    post = Post.query.filter_by(id=post_id).first()
+    # ensure a post exists with such id
+    if post is None:
+        return json.dumps(error_dict), 400
 
-@app.route('/api/post/<int:post_id>/tag/', methods=['POST'])
-def add_tag_to_post_by_id(post_id):
-    pass
+    # ensure the post with such id is owned by the user trying to delete it
+    if not(post.user_id == user.id):
+        return json.dumps(error_dict), 400
+
+    db.session.delete(post)
+    db.session.commit()
+    response = {
+        'success': True,
+        'data': post.serialize()
+    }
+    return json.dumps(response), 201
 
 
 if __name__ == '__main__':
