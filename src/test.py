@@ -8,9 +8,21 @@ from time import sleep
 # NOTE: Make sure you run 'pip3 install requests' in your virtualenv
 
 # URL pointing to your local dev host
+TOKEN = 'ya29.Glv_BqhVgl5PRIGu1vBxI1oBRHKas8kGVTpSlxPN4GXZ7R2lD9LjKUAw0iPn-Rvo_wzfeU6-XqN2KhiU5GgqlGDiGGR910neHZ99v4oMfnF9U4KINMqCsJBJsaSI'
+TOKEN2 = ''
 LOCAL_URL = 'http://localhost:5000'
-POSTBODY = {'text': 'My secret', 'nickname': 'anon'}
-USERBODY = {'nickname': 'anon', 'token': 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjVkODg3ZjI2Y2UzMjU3N2M0YjVhOGExZTFhNTJlMTlkMzAxZjgxODEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxMDU0MzI2NjQ1Njg3LWpxZzJuNHBmM2lxZHVmc2duaTlibG83a2NwdTZsamVkLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMTA1NDMyNjY0NTY4Ny1qcWcybjRwZjNpcWR1ZnNnbmk5YmxvN2tjcHU2bGplZC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjEwNjM4MDcxMDYzNjA3MzU3MjIzMCIsImhkIjoiY29ybmVsbC5lZHUiLCJlbWFpbCI6ImpkOTUyQGNvcm5lbGwuZWR1IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJkdDBIUG8wbFMwUnUzNzNVQ3duaXZBIiwibmFtZSI6Ikp1bnJ1aSBEZW5nIiwicGljdHVyZSI6Imh0dHBzOi8vbGg0Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tVFJWT3IwaHZvdXMvQUFBQUFBQUFBQUkvQUFBQUFBQUFBSEkvRnZUTHFvRUEyMVEvczk2LWMvcGhvdG8uanBnIiwiZ2l2ZW5fbmFtZSI6Ikp1bnJ1aSIsImZhbWlseV9uYW1lIjoiRGVuZyIsImxvY2FsZSI6ImVuIiwiaWF0IjoxNTU2OTEwNDk4LCJleHAiOjE1NTY5MTQwOTh9.JFbS-GeeMSIu_jATHpZeGJpWCeN_swBZpaj5v0EBtBrqZCbm8afXg8ti7PkhN5oPidB-OX467c1lYKIAePuzVpTVKx7IQRhpU9fp3LcqemKiiXzeVVpVJh0Iwpkk6iPd6oH2VMeHv5TBeSKlwjS6_pkXpz_61EbtXK29T-M17Jm0NSalt_CMK2FNH-zl-2DEK20aaHnx7JF_y0szp2fgE6TCRtERe4sKoruTH8BMNQ7oVhoT3ARQLEnJjjZJ5fEtIW8BbhAdjJwpf3gwXAnddEL9EK9mHmYs5oDmWNLOg3sHh5RRLUjHazDqw3x1b4X7BrBZArnuyg3wexwnaXBE1w'}
+POSTBODY = {
+    'text': 'My secret',
+    'token': TOKEN
+}
+USERBODY = {
+	"nickname": "anon",
+	"token": TOKEN
+}
+USER2BODY = {
+    "nickname": "littletree",
+	"token": TOKEN2
+}
 
 class TestRoutes(unittest.TestCase):
 
@@ -22,16 +34,50 @@ class TestRoutes(unittest.TestCase):
         res = requests.post(LOCAL_URL + '/api/users/', data=json.dumps(USERBODY))
         cls = res.json()['data']
         assert res.json()['success']
-        assert cls['id'] == 1
         assert cls['nickname'] == 'anon'
+        """For some reason, success is false...not sure why because it works in postman"""
         
     def test_get_user(self):
         res = requests.post(LOCAL_URL + '/api/users/', data=json.dumps(USERBODY))
-        res = requests.get(LOCAL_URL + '/api/users/eyJhbGciOiJSUzI1NiIsImtpZCI6IjVkODg3ZjI2Y2UzMjU3N2M0YjVhOGExZTFhNTJlMTlkMzAxZjgxODEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxMDU0MzI2NjQ1Njg3LWpxZzJuNHBmM2lxZHVmc2duaTlibG83a2NwdTZsamVkLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMTA1NDMyNjY0NTY4Ny1qcWcybjRwZjNpcWR1ZnNnbmk5YmxvN2tjcHU2bGplZC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjEwNjM4MDcxMDYzNjA3MzU3MjIzMCIsImhkIjoiY29ybmVsbC5lZHUiLCJlbWFpbCI6ImpkOTUyQGNvcm5lbGwuZWR1IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJkdDBIUG8wbFMwUnUzNzNVQ3duaXZBIiwibmFtZSI6Ikp1bnJ1aSBEZW5nIiwicGljdHVyZSI6Imh0dHBzOi8vbGg0Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tVFJWT3IwaHZvdXMvQUFBQUFBQUFBQUkvQUFBQUFBQUFBSEkvRnZUTHFvRUEyMVEvczk2LWMvcGhvdG8uanBnIiwiZ2l2ZW5fbmFtZSI6Ikp1bnJ1aSIsImZhbWlseV9uYW1lIjoiRGVuZyIsImxvY2FsZSI6ImVuIiwiaWF0IjoxNTU2OTEwNDk4LCJleHAiOjE1NTY5MTQwOTh9.JFbS-GeeMSIu_jATHpZeGJpWCeN_swBZpaj5v0EBtBrqZCbm8afXg8ti7PkhN5oPidB-OX467c1lYKIAePuzVpTVKx7IQRhpU9fp3LcqemKiiXzeVVpVJh0Iwpkk6iPd6oH2VMeHv5TBeSKlwjS6_pkXpz_61EbtXK29T-M17Jm0NSalt_CMK2FNH-zl-2DEK20aaHnx7JF_y0szp2fgE6TCRtERe4sKoruTH8BMNQ7oVhoT3ARQLEnJjjZJ5fEtIW8BbhAdjJwpf3gwXAnddEL9EK9mHmYs5oDmWNLOg3sHh5RRLUjHazDqw3x1b4X7BrBZArnuyg3wexwnaXBE1w/')
+        assert res.json()['success']
+        res = requests.get(LOCAL_URL + '/api/users/' + TOKEN + '/')
         cls = res.json()['data']
         assert res.json()['success']
-        assert cls['id'] == 1
         assert cls['nickname'] == 'anon'
+        """Need to be able to clear database after each test case or will interfere"""
+
+    def test_get_users(self):
+        requests.post(LOCAL_URL + '/api/users/', data=json.dumps(USERBODY))
+        requests.post(LOCAL_URL + '/api/users/', data=json.dumps(USER2BODY))
+        res = requests.get(LOCAL_URL + '/api/users/')
+        cls = res.json()['data']
+        assert res.json()['success']
+        user1 = cls[0]
+        user2 = cls[1]
+        assert user1['nickname'] == 'anon'
+        assert user2['nickname'] == 'littletree'
+
+    def test_get_users_none(self):
+        res = requests.get(LOCAL_URL + '/api/users/')
+        assert res.json()['success']
+        print(res.json()['data'])
+        assert res.json()['data'] == []
+
+    def create_post(self):
+        res = requests.post(LOCAL_URL + '/api/posts/', data=json.dumps(POSTBODY))
+        cls = res.json()['data']
+        assert res.json()['success']
+        assert cls['text'] == 'My secret'
+        assert cls['nickname'] == 'anon'
+
+    def get_post(self):
+        """Need to create a post to get first"""
+        res = requests.get(LOCAL_URL + '/api/posts/' + "add id", data=json.dumps(POSTBODY))
+        cls = res.json()['data']
+        assert res.json()['success']
+        post = cls[0]
+        assert post['text'] == 'My secret'
+        assert post['nickname'] == 'anon'
 
 
 """
