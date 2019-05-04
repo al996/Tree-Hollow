@@ -1,7 +1,7 @@
 import unittest
 import json
 import requests
-from app import app, db, create_test_app
+from app import app, db, create_app
 from threading import Thread
 from time import sleep
 
@@ -24,8 +24,8 @@ USER2BODY = {
     "token": TOKEN2
 }
 
-def create_app(self):
-        return create_test_app()
+def create_test_app(self):
+        return create_app()
     
 def setUp(self):
         db.create_all()
@@ -38,14 +38,14 @@ class TestRoutes(unittest.TestCase):
     
 
     def test_get_initial_posts(self):
-        create_app(self)
+        create_test_app(self)
         setUp(self)
         res = requests.get(LOCAL_URL + '/api/posts/')
         assert res.json()['success']
         tearDown(self)
 
     def test_register_user(self):
-        create_app(self)
+        create_test_app(self)
         setUp(self)
         res = requests.post(LOCAL_URL + '/api/users/',
                             data=json.dumps(USERBODY))
@@ -56,7 +56,7 @@ class TestRoutes(unittest.TestCase):
         
     
     def test_get_user(self):
-        create_app(self)
+        create_test_app(self)
         setUp(self)
         res = requests.post(LOCAL_URL + '/api/users/', data=json.dumps(USERBODY))
         assert res.json()['success']
@@ -65,7 +65,6 @@ class TestRoutes(unittest.TestCase):
         assert res.json()['success']
         assert cls['nickname'] == 'anon'
         tearDown(self)
-        """Need to be able to clear database after each test case or will interfere"""
 
     """
     def test_get_users(self):
