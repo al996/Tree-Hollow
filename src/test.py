@@ -8,7 +8,7 @@ from time import sleep
 # NOTE: Make sure you run 'pip3 install requests' in your virtualenv
 
 # URL pointing to your local dev host
-TOKEN = 'ya29.Glv_BqhVgl5PRIGu1vBxI1oBRHKas8kGVTpSlxPN4GXZ7R2lD9LjKUAw0iPn-Rvo_wzfeU6-XqN2KhiU5GgqlGDiGGR910neHZ99v4oMfnF9U4KINMqCsJBJsaSI'
+TOKEN = 'ya29.Glv_Bm67JwRVlS0JZcG_bjPJsQnfWAhsOnPM2ZxYcXnjiDIMiIloGLx9Y873C2JTWN59V0v2Vpjbb1TJFlQ8r23wOrLr7lf7hIdZ9Zx0WI18OO3jZqGcdolCb06E'
 TOKEN2 = ''
 LOCAL_URL = 'http://localhost:5000'
 POSTBODY = {
@@ -16,36 +16,40 @@ POSTBODY = {
     'token': TOKEN
 }
 USERBODY = {
-	"nickname": "anon",
-	"token": TOKEN
+    "nickname": "anon",
+    "token": TOKEN
 }
 USER2BODY = {
     "nickname": "littletree",
-	"token": TOKEN2
+    "token": TOKEN2
 }
+
 
 class TestRoutes(unittest.TestCase):
 
-    def test_get_initial_posts(self):
-        res = requests.get(LOCAL_URL + '/api/posts/')
-        assert res.json()['success']
-   
+    """ def test_get_initial_posts(self):
+         res = requests.get(LOCAL_URL + '/api/posts/')
+         assert res.json()['success']"""
+
     def test_register_user(self):
-        res = requests.post(LOCAL_URL + '/api/users/', data=json.dumps(USERBODY))
+        res = requests.post(LOCAL_URL + '/api/users/',
+                            data=json.dumps(USERBODY))
         cls = res.json()['data']
         assert res.json()['success']
         assert cls['nickname'] == 'anon'
         """For some reason, success is false...not sure why because it works in postman"""
-        
-    def test_get_user(self):
+
+        """def test_get_user(self):
         res = requests.post(LOCAL_URL + '/api/users/', data=json.dumps(USERBODY))
         assert res.json()['success']
         res = requests.get(LOCAL_URL + '/api/users/' + TOKEN + '/')
         cls = res.json()['data']
         assert res.json()['success']
-        assert cls['nickname'] == 'anon'
+        assert cls['nickname'] == 'anon'"""
         """Need to be able to clear database after each test case or will interfere"""
 
+
+"""
     def test_get_users(self):
         requests.post(LOCAL_URL + '/api/users/', data=json.dumps(USERBODY))
         requests.post(LOCAL_URL + '/api/users/', data=json.dumps(USER2BODY))
@@ -70,15 +74,15 @@ class TestRoutes(unittest.TestCase):
         assert cls['text'] == 'My secret'
         assert cls['nickname'] == 'anon'
 
-    def get_post(self):
-        """Need to create a post to get first"""
-        res = requests.get(LOCAL_URL + '/api/posts/' + "add id", data=json.dumps(POSTBODY))
-        cls = res.json()['data']
-        assert res.json()['success']
-        post = cls[0]
-        assert post['text'] == 'My secret'
-        assert post['nickname'] == 'anon'
-
+    def get_post(self):"""
+"""Need to create a post to get first"""
+"""
+             res = requests.get(LOCAL_URL + '/api/posts/' + "add id", data=json.dumps(POSTBODY))
+             cls = res.json()['data']
+             assert res.json()['success']
+             post = cls[0]
+             assert post['text'] == 'My secret'
+             assert post['nickname'] == 'anon'"""
 
 """
     def test_add_student_to_class(self):
@@ -142,6 +146,7 @@ class TestRoutes(unittest.TestCase):
 def run_tests():
     sleep(1.5)
     unittest.main()
+
 
 if __name__ == '__main__':
     thread = Thread(target=run_tests)
