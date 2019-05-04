@@ -56,14 +56,14 @@ def register_user():
     try:
         post = json.loads(request.data)
     except ValueError:
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: Body not a valid JSON'}), 400
 
     nickname = post.get("nickname")
     token = post.get("token")
     # ensure the body is in the expected format
     if len(list(post.keys())) != 2 or nickname is None\
             or token is None:
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: Body not in the expected format'}), 400
     # validate the user token with google oauth2
     get_params = {
         'access_token': token
@@ -75,14 +75,14 @@ def register_user():
         google_id = data['id']
     except KeyError:
         # token is invalid
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: Token is invalid'}), 400
 
     print(google_id)
     user = User.query.filter_by(google_id=google_id).first()
     if not(user is None):
         # the user trying to register already has an account
         print("User already exists with that google id")
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: Account already registered'}), 400
 
     constructed_user = User(
         google_id=google_id,
@@ -111,12 +111,12 @@ def get_user_by_token(token):
         google_id = data['id']
     except KeyError:
         # token is invalid
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: Token is invalid'}), 400
 
     user = User.query.filter_by(google_id=google_id).first()
     # ensure a user exists with such google id
     if user is None:
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: User does not exist'}), 400
     response = {
         "success": True,
         "data": user.serialize()
@@ -140,13 +140,13 @@ def create_a_post():
     try:
         post = json.loads(request.data)
     except ValueError:
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: Body not a valid JSON'}), 400
     text = post.get("text")
     token = post.get("token")
     # ensure the body is in the expected format
     if len(list(post.keys())) != 2 or text is None\
             or token is None:
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: Body not in the expected format'}), 400
     # validate the user token with google oauth2
     get_params = {
         'access_token': token
@@ -158,7 +158,7 @@ def create_a_post():
         google_id = data['id']
     except KeyError:
         # token is invalid
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: Token is invalid'}), 400
 
     print(google_id)
     user = User.query.filter_by(google_id=google_id).first()
@@ -166,7 +166,7 @@ def create_a_post():
         # the user trying to create a post is not stored in our database.
         # i dont think this should ever happen (hopefully ?)
         print("No user exists with that google id")
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: User does not exist'}), 400
 
     constructed_post = Post(
         text=text,
@@ -188,7 +188,7 @@ def get_post_by_id(post_id):
     post = Post.query.filter_by(id=post_id).first()
     # ensure a post exists with such id
     if post is None:
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: Post with id does not exist'}), 400
     response = {
         "success": True,
         "data": post.serialize()
@@ -202,13 +202,13 @@ def edit_post_by_id(post_id):
     try:
         post = json.loads(request.data)
     except ValueError:
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: Body not a valid JSON'}), 400
     text = post.get("text")
     token = post.get("token")
     # ensure the body is in the expected format
     if len(list(post.keys())) != 2 or text is None\
             or token is None:
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: Body is not in expected format'}), 400
     # validate the user token with google oauth2
     get_params = {
         'access_token': token
@@ -220,7 +220,7 @@ def edit_post_by_id(post_id):
         google_id = data['id']
     except KeyError:
         # token is invalid
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: Token is invalid'}), 400
 
     print(google_id)
     user = User.query.filter_by(google_id=google_id).first()
@@ -228,16 +228,16 @@ def edit_post_by_id(post_id):
         # the user trying to edit a post is not stored in our database.
         # i dont think this should ever happen (hopefully ?)
         print("No user exists with that google id")
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: User does not exist'}), 400
 
     post = Post.query.filter_by(id=post_id).first()
     # ensure a post exists with such id
     if post is None:
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: Post with id does not exist'}), 400
 
     # ensure the post with such id is owned by the user trying to edit it
     if not(post.user_id == user.id):
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: User does not own post'}), 400
 
     post.text = text
     db.session.commit()
@@ -261,23 +261,23 @@ def delete_post_by_id(post_id, token):
         google_id = data['id']
     except KeyError:
         # token is invalid
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: Token is invalid'}), 400
 
     user = User.query.filter_by(google_id=google_id).first()
     if user is None:
         # the user trying to delete the post is not stored in our database.
         # i dont think this should ever happen (hopefully ?)
         print("No user exists with that google id")
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: User does not exist'}), 400
 
     post = Post.query.filter_by(id=post_id).first()
     # ensure a post exists with such id
     if post is None:
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: Post with id does not exist'}), 400
 
     # ensure the post with such id is owned by the user trying to delete it
     if not(post.user_id == user.id):
-        return json.dumps(error_dict), 400
+        return json.dumps({'success': False, 'data': 'Error: User does not own post'}), 400
 
     db.session.delete(post)
     db.session.commit()
