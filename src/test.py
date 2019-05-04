@@ -1,14 +1,14 @@
 import unittest
 import json
 import requests
-from app import app
+from app import app, db, create_app
 from threading import Thread
 from time import sleep
 
 # NOTE: Make sure you run 'pip3 install requests' in your virtualenv
 
 # URL pointing to your local dev host
-TOKEN = 'ya29.Glv_Bm67JwRVlS0JZcG_bjPJsQnfWAhsOnPM2ZxYcXnjiDIMiIloGLx9Y873C2JTWN59V0v2Vpjbb1TJFlQ8r23wOrLr7lf7hIdZ9Zx0WI18OO3jZqGcdolCb06E'
+TOKEN = 'ya29.Glv_BmbRCviuaXHfYDgkAHxBnx9YvclaONFUr1M0qkj6TWGySdzzG_DcDFWV9vRJVr5VpWuf38hI5rxMQ-a7XeRgMdKRf1hmAcfYcIVBCC-ISsHW2uu7BRuw5_1h'
 TOKEN2 = ''
 LOCAL_URL = 'http://localhost:5000'
 POSTBODY = {
@@ -24,32 +24,49 @@ USER2BODY = {
     "token": TOKEN2
 }
 
+def create_test_app(self):
+        return create_app()
+    
+def setUp(self):
+        db.create_all()
+
+def tearDown(self):
+        db.session.remove()
+        db.drop_all()
 
 class TestRoutes(unittest.TestCase):
+    
 
-    """ def test_get_initial_posts(self):
-         res = requests.get(LOCAL_URL + '/api/posts/')
-         assert res.json()['success']"""
+    def test_get_initial_posts(self):
+        create_test_app(self)
+        setUp(self)
+        res = requests.get(LOCAL_URL + '/api/posts/')
+        assert res.json()['success']
+        tearDown(self)
 
     def test_register_user(self):
+        create_test_app(self)
+        setUp(self)
         res = requests.post(LOCAL_URL + '/api/users/',
                             data=json.dumps(USERBODY))
         cls = res.json()['data']
         assert res.json()['success']
         assert cls['nickname'] == 'anon'
-        """For some reason, success is false...not sure why because it works in postman"""
-
-        """def test_get_user(self):
+        tearDown(self)
+        
+    
+    def test_get_user(self):
+        create_test_app(self)
+        setUp(self)
         res = requests.post(LOCAL_URL + '/api/users/', data=json.dumps(USERBODY))
         assert res.json()['success']
         res = requests.get(LOCAL_URL + '/api/users/' + TOKEN + '/')
         cls = res.json()['data']
         assert res.json()['success']
-        assert cls['nickname'] == 'anon'"""
-        """Need to be able to clear database after each test case or will interfere"""
+        assert cls['nickname'] == 'anon'
+        tearDown(self)
 
-
-"""
+    """
     def test_get_users(self):
         requests.post(LOCAL_URL + '/api/users/', data=json.dumps(USERBODY))
         requests.post(LOCAL_URL + '/api/users/', data=json.dumps(USER2BODY))

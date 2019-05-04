@@ -5,12 +5,19 @@ from db import db, User, Post, Tag
 #from google.oauth2 import id_token
 import requests
 #from google.auth.transport import requests
-app = Flask(__name__)
-db_filename = 'data.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % db_filename
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = True
-db.init_app(app)
+
+def create_app():
+    app = Flask(__name__)
+    db_filename = 'data.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % db_filename
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_ECHO'] = True
+    # Dynamically bind SQLAlchemy to application
+    db.init_app(app)
+    app.app_context().push() # this does the binding
+    return app
+
+app = create_app()
 with app.app_context():
     db.create_all()
 # the dict to return in the event of an invalid request
