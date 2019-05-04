@@ -9,7 +9,7 @@ from time import sleep
 
 # URL pointing to your local dev host
 TOKEN = 'ya29.Glv_BmbRCviuaXHfYDgkAHxBnx9YvclaONFUr1M0qkj6TWGySdzzG_DcDFWV9vRJVr5VpWuf38hI5rxMQ-a7XeRgMdKRf1hmAcfYcIVBCC-ISsHW2uu7BRuw5_1h'
-TOKEN2 = ''
+TOKEN2 = 'ya29.Glv_BkoySOeL4hlxwQd5l_zAocsToGLgUztrB-e6f5TwwrFc4m0Od-ZuJ-Kq8wHHgsNQ9o-jCM2mHAzb_7rrkZF7_A6iX_UY7166R8MZWU_qhhCYvIWJUbvsWSVk'
 LOCAL_URL = 'http://localhost:5000'
 POSTBODY = {
     'text': 'My secret',
@@ -54,6 +54,14 @@ class TestRoutes(unittest.TestCase):
         assert cls['nickname'] == 'anon'
         tearDown(self)
         
+    def test_get_users_none(self):
+        create_test_app(self)
+        setUp(self)
+        res = requests.get(LOCAL_URL + '/api/users/')
+        assert res.json()['success']
+        print(res.json()['data'])
+        assert res.json()['data'] == []
+        tearDown(self)
     
     def test_get_user(self):
         create_test_app(self)
@@ -66,25 +74,20 @@ class TestRoutes(unittest.TestCase):
         assert cls['nickname'] == 'anon'
         tearDown(self)
 
-    """
-    def test_get_users(self):
+    def test_get_multiple_users(self):
         requests.post(LOCAL_URL + '/api/users/', data=json.dumps(USERBODY))
         requests.post(LOCAL_URL + '/api/users/', data=json.dumps(USER2BODY))
         res = requests.get(LOCAL_URL + '/api/users/')
+        print("res: multil " + requests.get(res))
         cls = res.json()['data']
         assert res.json()['success']
+        print("Multiple Users cls: " + cls)
         user1 = cls[0]
         user2 = cls[1]
         assert user1['nickname'] == 'anon'
         assert user2['nickname'] == 'littletree'
 
-    def test_get_users_none(self):
-        res = requests.get(LOCAL_URL + '/api/users/')
-        assert res.json()['success']
-        print(res.json()['data'])
-        assert res.json()['data'] == []
-
-    def create_post(self):
+    """def create_post(self):
         res = requests.post(LOCAL_URL + '/api/posts/', data=json.dumps(POSTBODY))
         cls = res.json()['data']
         assert res.json()['success']
