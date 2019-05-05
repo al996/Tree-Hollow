@@ -130,6 +130,54 @@ def get_user_by_token(token):
     }
     return json.dumps(response), 400
 
+@app.route('/api/users/nickname/', methods=['POST'])
+def edit_nickname():
+    # ensure the body is valid JSON
+    try:
+        user = json.loads(request.data)
+    except ValueError:
+        return json.dumps({'success': False, 'data': 'Error: Body not a valid JSON'}), 400
+    nickname = user.get("nickname")
+    token = user.get("token")
+    # ensure the body is in the expected format
+    if len(list(user.keys())) != 2 or nickname is None\
+            or token is None:
+        return json.dumps({'success': False, 'data': 'Error: Body not in the expected format'}), 400
+    # validate the user token with google oauth2
+    get_params = {
+        'access_token': token
+    }
+    r = requests.get(url=AUTH_URL, params=get_params)
+    data = r.json()
+
+    try:
+        google_id = data['id']
+    except KeyError:
+        # token is invalid
+        return json.dumps({'success': False, 'data': 'Error: Token is invalid'}), 400
+
+    print(google_id)
+    old_user = User.query.filter_by(google_id=google_id).first()
+    if user is None:
+        # the user trying to create a post is not stored in our database.
+        # i dont think this should ever happen (hopefully ?)
+        print("No user exists with that google id")
+        return json.dumps({'success': False, 'data': 'Error: User does not exist'}), 400
+
+    constructed_user = User(
+        google_id=google_id,
+        nickname=nickname,
+        join_date=old_user.join_date
+    )
+
+    db.session.delete(old_user)
+    db.session.add(constructed_user)
+    db.session.commit()
+    response = {
+        'success': True,
+        'data': constructed_user.serialize()
+    }
+    return json.dumps(response), 201
 
 @app.route('/api/users/', methods=['GET'])
 def get_all_users():
