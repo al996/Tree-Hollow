@@ -24,3 +24,4 @@
 6. Please note:
 <br>To run the app smoothly, please kindly add a new Keys.plist file, which should contain your own Google Sign-in Client ID, under TreeHollow/TreeHollow/ 
 <br>For any questions related to it, please contact Kevin Chan. He helped me with that. Thank you!  
+<br>Although it is a simple app, I tried to make it as perfect as possible. For example, with the same Google account, the user will go through the on-boading process only once no matter how many times (s)he signs in. The users cannot type nothing when they choose nickname or create new posts to enter next step. Besides, the posts are in reverse chronological order.
