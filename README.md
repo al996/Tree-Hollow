@@ -18,6 +18,6 @@
 <br>4. Used Google Sign-In API and other backend APIs to communicate with the backend
 <br><br>Backend:
 
-6. Anything else you want your grader to know:
-<br>Please note: to run the app smoothly, please kindly add a new Keys.plist file, which should contain your own Google Sign-in Client ID, under TreeHollow/TreeHollow/ 
+6. Please note:
+<br>To run the app smoothly, please kindly add a new Keys.plist file, which should contain your own Google Sign-in Client ID, under TreeHollow/TreeHollow/ 
 <br>For any questions related to it, please contact Kevin Chan. He helped me with that. Thank you!  
