@@ -55,9 +55,9 @@ class FeedTableViewCell: UITableViewCell {
             ])
     }
     
-    func configure(for post: Post){
-        contentLabel.text = post.content
-        nameLabel.text = post.user
+    func configure(for post: Posts){
+        contentLabel.text = post.text
+        nameLabel.text = post.nickname
     }
     
     required init?(coder aDecoder: NSCoder) {

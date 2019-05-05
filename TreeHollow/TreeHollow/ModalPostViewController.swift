@@ -117,11 +117,11 @@ class ModalPostViewController: UIViewController {
     @objc func confirmButtonPressed(){
         if let newContent = textInput.text, newContent != ""{
             warning.textColor = .white
-            print(newContent)
-            delegate?.postCreated(text: newContent)
+            NetworkManager.getUser { (response) in
+                self.delegate?.postCreated(text: newContent, nickname: response.data.nickname)
+            }
+            
             NetworkManager.postSecrets(text: newContent, token: AppDelegate.usertoken)
-//            NetworkManager.getPosts()
-//            NetworkManager.getUser()
             dismiss(animated: true, completion: nil)
         }else{
             warning.textColor = .red

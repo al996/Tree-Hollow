@@ -10,11 +10,11 @@
 		AA7A440C227CA294009CF7F9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7A440B227CA294009CF7F9 /* NetworkManager.swift */; };
 		AA7A440E227E83B7009CF7F9 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA7A440D227E83B7009CF7F9 /* Keys.plist */; };
 		AA7A4410227E83F3009CF7F9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7A440F227E83F3009CF7F9 /* Keys.swift */; };
+		AA7A4412227E8EAB009CF7F9 /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7A4411227E8EAB009CF7F9 /* Posts.swift */; };
 		AA888DFF22724E7E001E5370 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA888DFE22724E7E001E5370 /* FeedTableViewCell.swift */; };
 		AA888E0122725285001E5370 /* WelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA888E0022725285001E5370 /* WelcomePageViewController.swift */; };
 		AA888E0322725320001E5370 /* UsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA888E0222725320001E5370 /* UsernameViewController.swift */; };
 		AA888E052272533C001E5370 /* ModalPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA888E042272533C001E5370 /* ModalPostViewController.swift */; };
-		AA888E072272A570001E5370 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA888E062272A570001E5370 /* Post.swift */; };
 		AA888E09227399E6001E5370 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA888E08227399E6001E5370 /* User.swift */; };
 		AAC2BE1F226E60CA002A98B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC2BE1E226E60CA002A98B8 /* AppDelegate.swift */; };
 		AAC2BE21226E60CA002A98B8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC2BE20226E60CA002A98B8 /* ViewController.swift */; };
@@ -29,11 +29,11 @@
 		AA7A440B227CA294009CF7F9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		AA7A440D227E83B7009CF7F9 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		AA7A440F227E83F3009CF7F9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		AA7A4411227E8EAB009CF7F9 /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
 		AA888DFE22724E7E001E5370 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		AA888E0022725285001E5370 /* WelcomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePageViewController.swift; sourceTree = "<group>"; };
 		AA888E0222725320001E5370 /* UsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameViewController.swift; sourceTree = "<group>"; tabWidth = 6; };
 		AA888E042272533C001E5370 /* ModalPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPostViewController.swift; sourceTree = "<group>"; };
-		AA888E062272A570001E5370 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		AA888E08227399E6001E5370 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AAC2BE1B226E60CA002A98B8 /* TreeHollow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TreeHollow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAC2BE1E226E60CA002A98B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,7 +96,6 @@
 			children = (
 				AAC2BE1E226E60CA002A98B8 /* AppDelegate.swift */,
 				AAC2BE20226E60CA002A98B8 /* ViewController.swift */,
-				AA888E062272A570001E5370 /* Post.swift */,
 				AA888E08227399E6001E5370 /* User.swift */,
 				AAC2BE25226E60CC002A98B8 /* Assets.xcassets */,
 				AAC2BE27226E60CC002A98B8 /* LaunchScreen.storyboard */,
@@ -108,6 +107,7 @@
 				AA888E042272533C001E5370 /* ModalPostViewController.swift */,
 				AA7A440D227E83B7009CF7F9 /* Keys.plist */,
 				AA7A440F227E83F3009CF7F9 /* Keys.swift */,
+				AA7A4411227E8EAB009CF7F9 /* Posts.swift */,
 			);
 			path = TreeHollow;
 			sourceTree = "<group>";
@@ -265,8 +265,8 @@
 				AAC2BE21226E60CA002A98B8 /* ViewController.swift in Sources */,
 				AA888DFF22724E7E001E5370 /* FeedTableViewCell.swift in Sources */,
 				AA888E09227399E6001E5370 /* User.swift in Sources */,
+				AA7A4412227E8EAB009CF7F9 /* Posts.swift in Sources */,
 				AA888E0122725285001E5370 /* WelcomePageViewController.swift in Sources */,
-				AA888E072272A570001E5370 /* Post.swift in Sources */,
 				AAC2BE1F226E60CA002A98B8 /* AppDelegate.swift in Sources */,
 				AA7A4410227E83F3009CF7F9 /* Keys.swift in Sources */,
 			);

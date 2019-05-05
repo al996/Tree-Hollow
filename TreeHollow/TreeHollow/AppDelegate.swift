@@ -18,15 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         print(Keys.googleClientIdKey.value)
         GIDSignIn.sharedInstance()?.clientID = "1054326645687-jqg2n4pf3iqdufsgni9blo7kcpu6ljed.apps.googleusercontent.com"
         GIDSignIn.sharedInstance()?.delegate = self
-        GIDSignIn.sharedInstance().signOut()
+        //GIDSignIn.sharedInstance().signOut()
         
         window = UIWindow(frame: UIScreen.main.bounds)
         if GIDSignIn.sharedInstance().hasAuthInKeychain(){
             GIDSignIn.sharedInstance()?.signInSilently()
             print("user is signed in")
-            //print("THE TOKEN IS \(GIDSignIn.sharedInstance()?.hasAuthInKeychain())")
-            //print("THE Access TOKEN IS \(AppDelegate.usertoken)")
-            //AppDelegate.usertoken = GIDSignIn.sharedInstance()?.currentUser.authentication.accessToken
             window?.rootViewController = UINavigationController(rootViewController: ViewController())
         }else{
             window?.rootViewController = UINavigationController(rootViewController: WelcomePageViewController())
@@ -45,13 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             return
         }
         AppDelegate.usertoken = user.authentication.accessToken
-        print("THE TOKEN IS \(user.authentication.accessToken)")
-//        let usernameViewController = UsernameViewController()
-//        usernameViewController.usertoken = AppDelegate.usertoken
         
         NetworkManager.getUser { (response) in
-            print(response)
-            if response {
+            if response.success {
                 let viewController = ViewController()
                 self.window?.rootViewController = UINavigationController(rootViewController: viewController)
             }else{

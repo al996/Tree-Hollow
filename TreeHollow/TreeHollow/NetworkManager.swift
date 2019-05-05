@@ -20,17 +20,15 @@ struct GetUser: Codable {
     var joined: Double
 }
 
-struct GetPosts: Codable {
-    var id: String
-    var text: String
-    var nickname: String
-    var uploaded: Double
-}
+//struct BackendPosts: Codable {
+//    var id: Int
+//    var text: String
+//    var nickname: String
+//    var uploaded: Double
+//}
 
 class NetworkManager {
     static let url = "http://34.74.247.147/api/"
-//    static let userurl = URL(string: "users/")
-//    static let getPostsUrl = URL(string: "http://34.74.247.147/api/posts/")
     static let getUserUrl = "http://34.74.247.147/api/users/\(AppDelegate.usertoken!)/"
     
     static func performPostRequest(url: URL, jsonDataArray: [String : Any], errorAction: String, completionHandler: @escaping ((_ response: [String : Any]?) -> Void)) {
@@ -64,47 +62,41 @@ class NetworkManager {
         requestTask.resume()
     }
     
-    
-
-    
-    
-
-    
     static func postSecrets(text: String, token: String){
         performPostRequest(url: URL(string: "\(url)posts/")!, jsonDataArray: ["text": text, "token": token], errorAction: "") { (result) in
-            print("result is \(result)")
         }
     }
-//
-//    static func getPosts(){
-//        performGetRequest(url: URL(string: "\(url)posts/")!, errorAction: "") { (data) in
-//            if let data = data {
-//                let jsonDecoder = JSONDecoder()
-//                if let response = try? jsonDecoder.decode(Response<GetPosts>.self, from: data){
-//                        print("getPosts returns \(response.data.text)")
-//                    }
-//
-//                }else{
-//                    print("Invalid response data")
-//                }
-//            }
-//        }
+    
+    static func getPosts(completion: @escaping (_ response: [Posts]) -> Void){
+        Alamofire.request("\(NetworkManager.url)posts/", method: .get, encoding: URLEncoding.default).responseData { (response) in
+            switch response.result{
+            case .success(let data):
+                let jsonDecoder = JSONDecoder()
+                if let response = try? jsonDecoder.decode(Response<[Posts]>.self, from: data){
+                    completion(response.data)
+                }else{
+                    print("Get Posts Invalid response data")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
  
-    static func getUser(completion: @escaping (_ response: Bool) -> Void) {
-        print("getUser func Usertoken is \(AppDelegate.usertoken!)")
+    static func getUser(completion: @escaping (_ response: Response<GetUser>) -> Void) {
         Alamofire.request(NetworkManager.getUserUrl, method: .get, encoding: URLEncoding.default).responseData { (response) in
             switch response.result{
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
                 if let response = try? jsonDecoder.decode(Response<GetUser>.self, from: data){
-                    print("getUser returns \(response.success)")
-                    completion(response.success)
+                    print("getUser returns \(response)")
+                    completion(response)
                 }else{
                     print("Invalid response data")
                 }
             case .failure(let error):
                 print(error.localizedDescription)
-                completion(false)
             }
         }
     }

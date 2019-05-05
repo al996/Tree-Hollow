@@ -11,13 +11,8 @@ import UIKit
 protocol ChangeViewControllerDelegate: class {
 }
 
-protocol UseridDelegate: class {
-    var usertoken: String! { get set }
-}
 
 class UsernameViewController: UIViewController, UseridDelegate {
-    var usertoken: String!
-    
     var descriptionTextView: UILabel!
     var textInput: UITextField!
     var nameButton: UIButton!
@@ -28,8 +23,6 @@ class UsernameViewController: UIViewController, UseridDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        
-        //print(AppDelegate.usertoken)
         
         descriptionTextView = UILabel()
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false

@@ -10,7 +10,7 @@ import UIKit
 
 protocol PostDelegate: class {
     func usernameCreated(text: String)
-    func postCreated(text: String)
+    func postCreated(text: String, nickname: String)
 }
 
 class ViewController: UIViewController {
@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     var logoPic: UIImageView!
     var tableView: UITableView!
     var postButton: UIImageView!
-    var posts: [Post]!
+    var posts: [Posts]!
     var chosenIndex: Int!
     var username: String!
     
@@ -32,13 +32,7 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor.white
         title = "Posts"
         
-        let p1 = Post(content: "When I was a kid I shot a metal dog bowl with a BB gun, it ricocheted into my dads sliding glass door. Bullet hole, spiderwebbed glass, I panicked. I picked up a piece of gravel, rubbed it into the bullet hole then placed the piece of gravel near the door. I then started up the lawnmower, mowed part of the back yard and intentionally mowed the grass too short. I told my dad I must have hit a rock while mowing. B.B. gun didn’t get taken away, which was great. But ten years later im an actual landscaper and my dad pays me to cut his grass. My stepmom makes me check for rocks before I mow, there aren’t ever any. It’s the lie that won’t go away.", user: "DrunkensAndDragons")
-        let p2 = Post(content: "I had a mountain dew Baja blast addiction. In a single week a spent 50 bucks on the stuff. When I was quiting I had terrible headaches.", user: "LightBlade911")
-        let p3 = Post(content: "I make a point to say hi to small animals like squirrels and birds, and help slow moving insects like snails traveling across sidewalks so they don’t get stepped on. But only when people won’t see me because I’m afraid they’ll make fun of me.I am in my late 30’s with a good job, family and mentally sound. I just love these lil critters.", user: "Swedish-Butt-Whistle")
-        let p4 = Post(content: "Nobody in my family is aware I have made about 6 million from investments and my own businesses. They think I spend too much free time with inner city youth doing charity work for a low paying job. That job is my company.", user: "tiredofyourdrama")
-        let p5 = Post(content: "I won the lottery the day after my 18th birthday. I won’t state how much, but I live in a state where you an claim anonymously. I haven’t told anyone and haven’t made any lifestyle changes. I do have a heck of a retirement fund and investment portfolio. The only reason I bring this up now is people are just starting to put the pieces together. Not sure if I will end up telling my family, but I can’t risk word getting out, as my sister has a huge mouth.", user: "Anonymoususer2345")
-        let p6 = Post(content: "I would keep that secret and keep living a normal life. Secretly having financial independence must be a good feeling.", user: "bobasaurus")
-        posts = [p1, p2, p3, p4, p5, p6]
+        posts = []
         
         logoPic = UIImageView()
         logoPic.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +61,16 @@ class ViewController: UIViewController {
         view.addSubview(postButton)
         
         setupConstraints()
+        getPosts()
 }
+    func getPosts(){
+        NetworkManager.getPosts { (response) in
+            self.posts = response.reversed()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -143,14 +146,12 @@ extension ViewController: UITableViewDelegate {
 
 extension ViewController: PostDelegate {
     func usernameCreated(text: String) {
-        //username = text
-        print(text)
     }
     
-    func postCreated(text: String) {
-        let pNew = Post(content: text, user: "changechangechangechangelater")
+    func postCreated(text: String, nickname: String) {
+        print("postCreated() is called")
+        let pNew = Posts(id: 1000, text: text, nickname: nickname, uploaded: 52439859)
         posts.insert(pNew, at: 0)
-        print(posts!)
         tableView.reloadData()
     }
 }
