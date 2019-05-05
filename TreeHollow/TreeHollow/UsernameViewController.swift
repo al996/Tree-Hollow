@@ -12,7 +12,7 @@ protocol ChangeViewControllerDelegate: class {
 }
 
 
-class UsernameViewController: UIViewController, UseridDelegate {
+class UsernameViewController: UIViewController {
     var descriptionTextView: UILabel!
     var textInput: UITextField!
     var nameButton: UIButton!
