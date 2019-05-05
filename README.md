@@ -1,10 +1,11 @@
 # Tree-Hollow
-<<<<<<< HEAD
 1. App Name: Tree Hollow
 
 2. App Tagline:  A digital, safe tree hollow that collectes your secrets
 
 3. Screenshots:
+<img width="980" alt="Screen Shot 2019-05-03 at 2 27 44 PM" src="https://user-images.githubusercontent.com/48665960/57188571-ed982400-6ece-11e9-93f7-24ccf2eef0e3.png">
+
 
 4. Description:
 
