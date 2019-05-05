@@ -1,0 +1,467 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA7A440C227CA294009CF7F9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7A440B227CA294009CF7F9 /* NetworkManager.swift */; };
+		AA7A440E227E83B7009CF7F9 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA7A440D227E83B7009CF7F9 /* Keys.plist */; };
+		AA7A4410227E83F3009CF7F9 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7A440F227E83F3009CF7F9 /* Keys.swift */; };
+		AA7A4412227E8EAB009CF7F9 /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7A4411227E8EAB009CF7F9 /* Posts.swift */; };
+		AA888DFF22724E7E001E5370 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA888DFE22724E7E001E5370 /* FeedTableViewCell.swift */; };
+		AA888E0122725285001E5370 /* WelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA888E0022725285001E5370 /* WelcomePageViewController.swift */; };
+		AA888E0322725320001E5370 /* UsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA888E0222725320001E5370 /* UsernameViewController.swift */; };
+		AA888E052272533C001E5370 /* ModalPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA888E042272533C001E5370 /* ModalPostViewController.swift */; };
+		AA888E09227399E6001E5370 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA888E08227399E6001E5370 /* User.swift */; };
+		AAC2BE1F226E60CA002A98B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC2BE1E226E60CA002A98B8 /* AppDelegate.swift */; };
+		AAC2BE21226E60CA002A98B8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC2BE20226E60CA002A98B8 /* ViewController.swift */; };
+		AAC2BE26226E60CC002A98B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAC2BE25226E60CC002A98B8 /* Assets.xcassets */; };
+		AAC2BE29226E60CC002A98B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAC2BE27226E60CC002A98B8 /* LaunchScreen.storyboard */; };
+		DDBCAE378D3275F02C29FC29 /* Pods_TreeHollow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A2C49319644EC88425C2C8 /* Pods_TreeHollow.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		37A5079C1C4E164D2320C3A0 /* Pods-TreeHollow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TreeHollow.debug.xcconfig"; path = "Target Support Files/Pods-TreeHollow/Pods-TreeHollow.debug.xcconfig"; sourceTree = "<group>"; };
+		45A2C49319644EC88425C2C8 /* Pods_TreeHollow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TreeHollow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA7A440B227CA294009CF7F9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		AA7A440D227E83B7009CF7F9 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		AA7A440F227E83F3009CF7F9 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		AA7A4411227E8EAB009CF7F9 /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
+		AA888DFE22724E7E001E5370 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
+		AA888E0022725285001E5370 /* WelcomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePageViewController.swift; sourceTree = "<group>"; };
+		AA888E0222725320001E5370 /* UsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameViewController.swift; sourceTree = "<group>"; tabWidth = 6; };
+		AA888E042272533C001E5370 /* ModalPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPostViewController.swift; sourceTree = "<group>"; };
+		AA888E08227399E6001E5370 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		AAC2BE1B226E60CA002A98B8 /* TreeHollow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TreeHollow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAC2BE1E226E60CA002A98B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AAC2BE20226E60CA002A98B8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AAC2BE25226E60CC002A98B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AAC2BE28226E60CC002A98B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AAC2BE2A226E60CC002A98B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E37220A9AF038606A703C5CA /* Pods-TreeHollow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TreeHollow.release.xcconfig"; path = "Target Support Files/Pods-TreeHollow/Pods-TreeHollow.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AAC2BE18226E60C9002A98B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDBCAE378D3275F02C29FC29 /* Pods_TreeHollow.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		14F6645BA3B338BE5EC57495 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				37A5079C1C4E164D2320C3A0 /* Pods-TreeHollow.debug.xcconfig */,
+				E37220A9AF038606A703C5CA /* Pods-TreeHollow.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		615584A231577E5CBE527222 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				45A2C49319644EC88425C2C8 /* Pods_TreeHollow.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AAC2BE12226E60C9002A98B8 = {
+			isa = PBXGroup;
+			children = (
+				AAC2BE1D226E60CA002A98B8 /* TreeHollow */,
+				AAC2BE1C226E60CA002A98B8 /* Products */,
+				14F6645BA3B338BE5EC57495 /* Pods */,
+				615584A231577E5CBE527222 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		AAC2BE1C226E60CA002A98B8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AAC2BE1B226E60CA002A98B8 /* TreeHollow.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AAC2BE1D226E60CA002A98B8 /* TreeHollow */ = {
+			isa = PBXGroup;
+			children = (
+				AAC2BE1E226E60CA002A98B8 /* AppDelegate.swift */,
+				AAC2BE20226E60CA002A98B8 /* ViewController.swift */,
+				AA888E08227399E6001E5370 /* User.swift */,
+				AAC2BE25226E60CC002A98B8 /* Assets.xcassets */,
+				AAC2BE27226E60CC002A98B8 /* LaunchScreen.storyboard */,
+				AAC2BE2A226E60CC002A98B8 /* Info.plist */,
+				AA7A440B227CA294009CF7F9 /* NetworkManager.swift */,
+				AA888E0022725285001E5370 /* WelcomePageViewController.swift */,
+				AA888E0222725320001E5370 /* UsernameViewController.swift */,
+				AA888DFE22724E7E001E5370 /* FeedTableViewCell.swift */,
+				AA888E042272533C001E5370 /* ModalPostViewController.swift */,
+				AA7A440D227E83B7009CF7F9 /* Keys.plist */,
+				AA7A440F227E83F3009CF7F9 /* Keys.swift */,
+				AA7A4411227E8EAB009CF7F9 /* Posts.swift */,
+			);
+			path = TreeHollow;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AAC2BE1A226E60C9002A98B8 /* TreeHollow */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAC2BE2D226E60CC002A98B8 /* Build configuration list for PBXNativeTarget "TreeHollow" */;
+			buildPhases = (
+				0FF28ED4B7968D1965127DD2 /* [CP] Check Pods Manifest.lock */,
+				AAC2BE17226E60C9002A98B8 /* Sources */,
+				AAC2BE18226E60C9002A98B8 /* Frameworks */,
+				AAC2BE19226E60C9002A98B8 /* Resources */,
+				53679010AB68623428B0C922 /* [CP] Embed Pods Frameworks */,
+				9F3AC8F564B76F64C9326ECF /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TreeHollow;
+			productName = TreeHollow;
+			productReference = AAC2BE1B226E60CA002A98B8 /* TreeHollow.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AAC2BE13226E60C9002A98B8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "Rachel Deng";
+				TargetAttributes = {
+					AAC2BE1A226E60C9002A98B8 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+				};
+			};
+			buildConfigurationList = AAC2BE16226E60C9002A98B8 /* Build configuration list for PBXProject "TreeHollow" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AAC2BE12226E60C9002A98B8;
+			productRefGroup = AAC2BE1C226E60CA002A98B8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AAC2BE1A226E60C9002A98B8 /* TreeHollow */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AAC2BE19226E60C9002A98B8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA7A440E227E83B7009CF7F9 /* Keys.plist in Resources */,
+				AAC2BE29226E60CC002A98B8 /* LaunchScreen.storyboard in Resources */,
+				AAC2BE26226E60CC002A98B8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0FF28ED4B7968D1965127DD2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TreeHollow-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		53679010AB68623428B0C922 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TreeHollow/Pods-TreeHollow-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TreeHollow/Pods-TreeHollow-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9F3AC8F564B76F64C9326ECF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TreeHollow/Pods-TreeHollow-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TreeHollow/Pods-TreeHollow-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AAC2BE17226E60C9002A98B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA7A440C227CA294009CF7F9 /* NetworkManager.swift in Sources */,
+				AA888E052272533C001E5370 /* ModalPostViewController.swift in Sources */,
+				AA888E0322725320001E5370 /* UsernameViewController.swift in Sources */,
+				AAC2BE21226E60CA002A98B8 /* ViewController.swift in Sources */,
+				AA888DFF22724E7E001E5370 /* FeedTableViewCell.swift in Sources */,
+				AA888E09227399E6001E5370 /* User.swift in Sources */,
+				AA7A4412227E8EAB009CF7F9 /* Posts.swift in Sources */,
+				AA888E0122725285001E5370 /* WelcomePageViewController.swift in Sources */,
+				AAC2BE1F226E60CA002A98B8 /* AppDelegate.swift in Sources */,
+				AA7A4410227E83F3009CF7F9 /* Keys.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AAC2BE27226E60CC002A98B8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AAC2BE28226E60CC002A98B8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AAC2BE2B226E60CC002A98B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AAC2BE2C226E60CC002A98B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AAC2BE2E226E60CC002A98B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37A5079C1C4E164D2320C3A0 /* Pods-TreeHollow.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JM58BZV94W;
+				INFOPLIST_FILE = TreeHollow/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = HackChallenge.TreeHollow;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AAC2BE2F226E60CC002A98B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E37220A9AF038606A703C5CA /* Pods-TreeHollow.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JM58BZV94W;
+				INFOPLIST_FILE = TreeHollow/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = HackChallenge.TreeHollow;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AAC2BE16226E60C9002A98B8 /* Build configuration list for PBXProject "TreeHollow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAC2BE2B226E60CC002A98B8 /* Debug */,
+				AAC2BE2C226E60CC002A98B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAC2BE2D226E60CC002A98B8 /* Build configuration list for PBXNativeTarget "TreeHollow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAC2BE2E226E60CC002A98B8 /* Debug */,
+				AAC2BE2F226E60CC002A98B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AAC2BE13226E60C9002A98B8 /* Project object */;
+}
