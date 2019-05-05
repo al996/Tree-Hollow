@@ -1,8 +1,10 @@
 # Tree-Hollow
-1. App Name: Tree Hollow
+
 <img width="200" src="https://user-images.githubusercontent.com/48665960/57200297-3ba53a00-6f58-11e9-9017-649ec13928de.png">
 
-2. App Tagline:  A digital, safe tree hollow that collectes your secrets
+1. App Name: Tree Hollow
+
+2. App Tagline: A digital, safe tree hollow that collects your secrets
 
 3. Screenshots:
 <img width="400" src="https://user-images.githubusercontent.com/48665960/57200339-bb330900-6f58-11e9-945b-c3e06ed2342f.png">
