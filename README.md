@@ -8,9 +8,16 @@
 
 
 4. Description:
+<br>Do you sometimes have something in mind and desperately want to share with someone but fear judgments on your usual social networks? That is where TreeHollow comes in! This app is a safe, digital “tree hollow” where you can post your long-buried secrets with nicknames and read others’ secrets.
 
 5. A list of how your app addresses each of the requirements (iOS / Backend):
+<br>iOS:
+<br>1. AutoLayout using NSLayoutConstraint
+<br>2. The main feed using UITableView
+<br>3. Used UINavigationController to navigate between screens
+<br>4. Used Google Sign-In API and other backend APIs to communicate with the backend
+<br><br>Backend:
 
 6. Anything else you want your grader to know:
-Please note: to run the app smoothly, please kindly add a new Keys.plist file, which should contain your own Google Sign-in Client ID, under TreeHollow/TreeHollow/ 
-For any questions related to it, please contact Kevin Chan. He helped me with that. Thank you!  
+<br>Please note: to run the app smoothly, please kindly add a new Keys.plist file, which should contain your own Google Sign-in Client ID, under TreeHollow/TreeHollow/ 
+<br>For any questions related to it, please contact Kevin Chan. He helped me with that. Thank you!  
