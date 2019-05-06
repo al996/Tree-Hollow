@@ -15,6 +15,7 @@
 <br>Do you sometimes have something in mind and desperately want to share with someone but fear judgments on your usual social networks? That is where TreeHollow comes in! This app is a safe, digital “tree hollow” where you can post your long-buried secrets with nicknames and read others’ secrets.
 
 5. Design Process:
+<br>Proposal: https://docs.google.com/document/d/13AfFC8L65EeaGCynTRyeq_0OmOxDENpPh4TPQYDWww0/edit?usp=sharing
 <br>Prototype: https://www.figma.com/file/H1R9Eph08egyGk0sLhG0M80Y/Tree-Hollow?node-id=0%3A1
 
 6. A list of how your app addresses each of the requirements (iOS / Backend):
